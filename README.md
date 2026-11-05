@@ -7,13 +7,6 @@ Code for the Damage / Resistance / Tolerance (D/R/T) domain-score analyses. All 
 
 1. `01_DRT_scores.R`: derives the multi-omic PC1 weights and the transcriptomic projection models in RESERVE-U-2-TOR (`DERIVE = TRUE`), checks them against the published values, and scores every cohort. Also runs the TOR-axis checks in RESERVE-U-1-EBB and the projection performance (TOR out-of-fold, EBB external). Outputs: `DRT_scores_output/<cohort>/`, `derivation/`, `transfer_checks/`.
 2. `02_Figure1_multiomic_scores.R`: Figure 1 (panels A–E) from the step 1 outputs. Outputs: `DRT_scores_output/figures/`.
-3. `clinical/03_RESERVE_U_2_TOR_DRT_Clinical.R`: RESERVE-U-2-TOR clinical analyses (joint 30-day mortality and MEWS models, Firth sensitivity, infection → score regressions, projection correlations and supportive models). Outputs: `DRT_scores_output/Clinical analyses/RESERVE_U_2_TOR/`.
-   - `clinical/03a_RESERVE_U_2_TOR_Table_Characteristics.R`: RESERVE-U-2-TOR participant characteristics table. Output: same folder (.docx).
-4. `clinical/04_RESERVE_U_1_EBB_DRT_Clinical.R`: the same analyses in RESERVE-U-1-EBB. Outputs: `.../RESERVE_U_1_EBB/`.
-5. `clinical/05_RESERVE_U_Pooled_DRT_Clinical.R`: post hoc pooled RESERVE-U analyses, infection × domain interaction models, exploratory urine LAM analysis. Outputs: `.../Pooled/`.
-   - `clinical/05a_RESERVE_U_Figure3.R`: Figure 3 (source at the end of step 5, or run after it). Outputs: `.../Pooled/`.
-6. `clinical/06_ACESO_Ghana_DRT_Clinical.R`: ACESO-Ghana sepsis vs healthy comparison, joint MEWS and 28-day mortality models, longitudinal mixed models, 72-hour landmark analysis. Outputs: `.../Ghana/`.
-7. `clinical/07_GSE185263_DRT_Clinical.R`: GSE185263 sepsis vs healthy comparison, joint in-hospital mortality and median SOFA models, recruitment-site and ED/ICU analyses. Outputs: `.../GSE185263/`.
 
 `08_DRT_clinical_template.R` is a configurable version of the clinical framework for new cohorts (see below); it is not part of the run order above.
 
@@ -26,7 +19,6 @@ The template supports four modules: (A) case vs control Wilcoxon tests; (B) mutu
 
 ## Notes
 
-- Paths in the clinical scripts are set at the top of each script, relative to the project root.
 - RESERVE-U-2-TOR projection scores used in all analyses are the out-of-fold predictions from the first cross-validation repeat (`OOF_METHOD = "first_repeat"`). The range of out-of-fold r across the 10 repeats is in `derivation/surrogate_crossvalidated_performance.csv`.
-- Internal identifiers keep the original name "surrogate" (e.g. method `rna_surrogate_lasso14_1se`, file `surrogate_coefficients.csv`); in the manuscript these are the transcriptomic projections.
+- Internal identifiers use name "surrogate" (e.g. method `rna_surrogate_lasso14_1se`, file `surrogate_coefficients.csv`); in the manuscript these are the transcriptomic projections.
 - Software versions are written to `sessionInfo.txt` in each output folder.
