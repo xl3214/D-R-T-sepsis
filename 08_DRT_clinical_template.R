@@ -247,7 +247,7 @@ if (RUN_A_CASE_CONTROL && !is.null(CASE_COL)) {
     filter(is.finite(score)) %>%
     ggplot(aes(.group, score, fill = domain)) +
     geom_boxplot(outlier.shape = NA, alpha = 0.6) +
-    geom_jitter(width = 0.15, size = 0.6, alpha = 0.5) +
+    geom_point(position = position_jitter(width = 0.15, height = 0, seed = SEED), size = 0.6, alpha = 0.5) +
     facet_wrap(~ domain) + scale_fill_manual(values = DCOL, guide = "none") +
     labs(x = NULL, y = "Domain score (SD units)") + theme_bw(base_size = 10)
   out_pdf(pA, "A_case_vs_control_boxplots", 8, 3.5)
