@@ -1,9 +1,6 @@
 # =============================================================================
 # Damage / Resistance / Tolerance (D/R/T) domain scores: clinical analysis template
-# Script: 08_DRT_clinical_template.R               Version: 1.0 (11.05.2026)
-# Contact: Xuan Lu, xl3214@cumc.columbia.edu
-# License: MIT
-# Reference (please cite):
+# Script: 08_DRT_clinical_template.R
 # =============================================================================
 #
 # PURPOSE
