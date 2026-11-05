@@ -92,8 +92,13 @@ feat <- rd("derivation", "multiomic_PC1_feature_score_correlations.csv") %>%
     is_prot = grepl("_prot$", feature),
     label = ifelse(is_prot,
                    paste0(PROT[sub("_prot$", "", feature)], " (protein)"),
-                   paste0(sub("_gene$", "", feature), " (transcriptome)")),
+                   paste0(sub("_gene$", "", feature), " (gene)")),
     label = paste0(label, ifelse(direction_reversed, "†", "")),
+    # axis label as plotmath: protein name upright, gene symbol italic
+    label_expr = paste0(ifelse(is_prot,
+                               paste0('"', PROT[sub("_prot$", "", feature)], ' (protein)"'),
+                               paste0('italic("', sub("_gene$", "", feature), '")~"(gene)"')),
+                        ifelse(direction_reversed, '*"†"', "")),
     domain = factor(domain, levels = DOMAINS)
   ) %>%
   arrange(domain, desc(is_prot), desc(abs(corr_feature_vs_score_TOR)))
@@ -170,6 +175,7 @@ pB <- ggplot(longB, aes(col, row)) +
            size = BASE / .pt, vjust = 0, lineheight = 0.9) +
   annotate("segment", x = 0.5, xend = 3.45, y = hlinesB, yend = hlinesB, linewidth = 0.4) +
   scale_r(show = TRUE) + scale_x_discrete(position = "top") +
+  scale_y_discrete(labels = function(x) parse(text = setNames(featB$label_expr, featB$label)[x])) +
   coord_cartesian(xlim = c(0.5, 2.5), ylim = c(0.5, nB + 0.5), expand = FALSE, clip = "off") +
   labs(x = NULL, y = NULL, tag = "B") +
   heat_theme() +
@@ -213,6 +219,9 @@ pD <- ggplot(coefD, aes(model, glabel)) +
   scale_fill_gradient2(low = "#542788", mid = "white", high = "#B35806", midpoint = 0,
                        limits = c(-0.7, 0.7), na.value = "#F2F2F2", guide = "none") +
   scale_x_discrete(position = "top") +
+  # gene symbols in italics (plotmath)
+  scale_y_discrete(labels = function(x) parse(text = paste0('italic("', sub("†$", "", x), '")',
+                                                            ifelse(grepl("†$", x), '*"†"', "")))) +
   annotate("text", x = 2, y = 0.2, vjust = 1, size = (BASE - 1) / .pt, lineheight = 0.95,
            label = paste0("Transcriptomic projection model coefficients\nGenes retained: ",
                           paste(sprintf("%d/14", n_ret$n), collapse = ", "))) +
