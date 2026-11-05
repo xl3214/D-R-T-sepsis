@@ -59,7 +59,7 @@
 # REPRODUCIBILITY
 #   All steps are deterministic except the LASSO cross-validation (DERIVE =
 #   TRUE), which uses fixed seeds (20261002 + repeat). Results were produced
-#   with R 4.4.1, DESeq2 [version], edgeR 4.2.2, glmnet 4.1-10 and
+#   with R 4.4.1, DESeq2 1.44.0, edgeR 4.2.2, glmnet 4.1-10 and
 #   org.Hs.eg.db 3.19.1; other versions may give small numerical differences.
 #   With DERIVE = TRUE the script reports the maximum difference between the
 #   re-derived and the published values (derivation_vs_published.csv).
